@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<\App\Category>
+ * @extends Factory<\App\Models\Category>
  */
 class CategoryFactory extends Factory
 {
