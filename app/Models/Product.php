@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -47,6 +48,26 @@ class Product extends Model
         'description',
         'price'
     ];
+
+    protected $casts = [
+        'price' => 'decimal:2'
+    ];
+
+    public function name(): Attribute
+    {
+        return Attribute::make(
+            get: fn(string $value) => ucfirst($value),
+            set: fn(string $value) => strtolower($value)
+        );
+    }
+
+    public function description(): Attribute
+    {
+        return Attribute::make(
+            get: fn(?string $value) => is_null($value) ? null : ucfirst($value),
+            set: fn(?string $value) => is_null($value) ? null : strtolower($value),
+        );
+    }
 
     public function category(): BelongsTo
     {
