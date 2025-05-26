@@ -48,4 +48,12 @@ class OrderService
     {
         return round($product->price * $quantity, 2);
     }
+
+    public function changeStatusToCompleted(int $orderId): void
+    {
+        $order = Order::query()->findOrFail($orderId);
+
+        $order->status = OrderStatusEnum::COMPLETED;
+        $order->save();
+    }
 }

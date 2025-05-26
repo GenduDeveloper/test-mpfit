@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\v1\CompleteOrderController;
 use App\Http\Controllers\API\v1\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\v1\ProductController;
@@ -37,5 +38,8 @@ Route::prefix('/v1')->group(function () {
             Route::get('/orders/{orderId}', 'show')
                 ->name('orders.show');
         });
+
+    Route::put('/orders/{orderId}', CompleteOrderController::class)
+        ->name('orders.complete');
 
 });
