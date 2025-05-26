@@ -43,8 +43,8 @@ class ProductController extends Controller
         $newProduct = $productService->createProduct($productData);
 
         return new JsonResponse([
-            'message'     => 'Товар успешно создан',
-            'data' => new ProductDetailResource($newProduct)
+            'message' => 'Товар успешно создан',
+            'data'    => new ProductDetailResource($newProduct)
         ], Response::HTTP_CREATED);
     }
 

@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Enums\OrderStatusEnum;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $customer_name
@@ -40,6 +42,8 @@ class Order extends Model
 {
     use HasFactory;
 
+    const PER_PAGE = 15;
+
     protected $table = 'orders';
 
     public $timestamps = false;
@@ -55,6 +59,49 @@ class Order extends Model
         'product_quantity',
         'total_price'
     ];
+
+    protected $casts = [
+        'created_at'  => 'datetime:Y-m-d H:i:s',
+        'status'      => OrderStatusEnum::class,
+        'total_price' => 'decimal:2'
+    ];
+
+    public function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => mb_ucfirst($this->customer_name)
+                . ' ' . mb_ucfirst($this->customer_surname)
+                . ' ' . mb_ucfirst($this->customer_patronymic)
+        );
+    }
+
+    public function customerName(): Attribute
+    {
+        return Attribute::make(
+            set: fn(string $value) => mb_strtolower($value)
+        );
+    }
+
+    public function customerSurname(): Attribute
+    {
+        return Attribute::make(
+            set: fn(string $value) => mb_strtolower($value)
+        );
+    }
+
+    public function customerPatronymic(): Attribute
+    {
+        return Attribute::make(
+            set: fn(string $value) => mb_strtolower($value)
+        );
+    }
+
+    public function comment(): Attribute
+    {
+        return Attribute::make(
+            set: fn(string $value) => mb_strtolower($value)
+        );
+    }
 
     public function product(): BelongsTo
     {

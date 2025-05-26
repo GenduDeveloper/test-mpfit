@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\v1\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\v1\ProductController;
 
@@ -23,5 +24,18 @@ Route::prefix('/v1')->group(function () {
         Route::delete('/products/{productId}', 'destroy')
             ->name('products.destroy');
     });
+
+    Route::controller(OrderController::class)
+        ->group(function () {
+
+            Route::get('/orders', 'index')
+                ->name('orders.index');
+
+            Route::post('/orders', 'store')
+                ->name('orders.store');
+
+            Route::get('/orders/{orderId}', 'show')
+                ->name('orders.show');
+        });
 
 });
