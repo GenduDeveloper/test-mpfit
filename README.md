@@ -6,4 +6,13 @@
 
 # Разворачивание проекта
 
+1. Клонируем репозиторий: git clone https://github.com/GenduDeveloper/test-mpfit.git
+2. composer install в корне проекта
+3. Переименовываем .env.example в .env и настраиваем подключение к БД
+4. php artisan migrate
+5. Накатываем тестовые данные: php artisan db:seed
+6. php artisan serve
+
+Коллекцию Postman можно скачать из: `/app/PostmanCollections`
+
 
